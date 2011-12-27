@@ -1,17 +1,23 @@
 PriyankYammer::Application.routes.draw do
   
-  get "users/my_profile", :to => "users#my_profile", :as => "my_profile"
-  
-  resources :users
-  
-  devise_for :users, :controllers => { :confirmations => "confirmations" }
-
-  
-  
-#  devise_for :users
   as :user do
     match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
   end
+  
+  resources :users, :except => :show do
+    collection do
+      get 'my_profile'
+    end
+  end
+#  get "users/show_user", :to => "users#show_user", :as => "show_user"
+  
+  devise_for :users
+  devise_scope :user do
+    get "confirmation", :to => "confirmations#show"#:controllers => { :confirmations => "confirmations" }
+  end
+  
+#  get "users/confirmation", :to => "confirmations#show"
+  
   
   resources :feeds do
     resources :comments

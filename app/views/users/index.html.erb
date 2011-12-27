@@ -1,0 +1,15 @@
+<%= flash[:notice] %>
+
+<h2>Listing Users </h2>
+<div>
+  <% @users.each do |user| %>
+    <div style = "float:left; padding-right: 10px"><%= user.email %></div>
+    <div style = "float:left;">
+      <% if user.user_type == "normal" %>
+        <%= form_tag(user_path(:id => user.id), :method => :delete) do %>
+          <%= image_submit_tag("cancel.gif")%>
+        <% end %>
+      <% end %>
+    </div><br />
+  <% end %>
+</div>
