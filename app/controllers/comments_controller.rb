@@ -8,4 +8,12 @@ class CommentsController < ApplicationController
     end
     redirect_to feeds_path
   end
+  
+  def destroy
+    comment = Comment.find(params[:id])
+    if (current_user.user_type == "admin")
+      comment.destroy
+    end
+    redirect_to(feeds_path)
+  end
 end

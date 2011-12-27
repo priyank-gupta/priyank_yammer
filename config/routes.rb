@@ -1,9 +1,14 @@
 PriyankYammer::Application.routes.draw do
   
+  get "users/my_profile", :to => "users#my_profile", :as => "my_profile"
+  
+  resources :users
   
   devise_for :users, :controllers => { :confirmations => "confirmations" }
-  resources :users
-  devise_for :users
+
+  
+  
+#  devise_for :users
   as :user do
     match '/user/confirmation' => 'confirmations#update', :via => :put, :as => :update_user_confirmation
   end
@@ -13,6 +18,8 @@ PriyankYammer::Application.routes.draw do
   end
   
   post "feeds/follow", :to => "feeds#follow", :as => "follow"
+  
+  
   
   
   

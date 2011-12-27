@@ -8,16 +8,25 @@
 </head>
 <body>
   <div id = "header">
-    <h1>Yammer</h1>
-    <div id = "nav1">
-      <span><%= link_to "Add user", new_user_path %></span> | <span><%= link_to "LogOut", destroy_user_session_path %></span>
-    </div><br />
+    <h1 style ="margin:0px">Yammer</h1>
+    <% if current_user %>
+      <p style = "float:right;margin:0">Hi! <%= current_user.email %></p><br/>
+      <div id = "nav1">
+        <% if current_user.user_type == "admin" %>
+          <span><%= link_to "All Users", users_path %> |
+          <span><%= link_to "Add User", new_user_path %></span> | 
+        <% end %>
+      <span><%= link_to "LogOut", destroy_user_session_path %></span>
+      </div><br />
+    <% end %>
   </div>
   <div id = "main_body">
-    <div id = "leftside" style = "padding-right:50px">
-      <%= link_to "Feeds", feeds_path %><br /><br />
-      <%= link_to "My Profile",  %>
-    </div>
+    <% if current_user %>
+      <div id = "leftside" style = "padding-right:50px">
+        <%= link_to "Feeds", feeds_path %><br /><br />
+        <%= link_to "My Profile", my_profile_path %>
+      </div>
+    <% end %>
     <div id = "rightside">
       <%= yield %>
     </div><br/>

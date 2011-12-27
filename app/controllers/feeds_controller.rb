@@ -22,4 +22,13 @@ class FeedsController < ApplicationController
     follow.save
     redirect_to feeds_path
   end
+  
+  def destroy
+    p params
+    @feed = Feed.where("id = ?", params[:id]).first
+    if current_user.user_type == "admin"
+      @feed.destroy
+    end
+    redirect_to(feeds_url) 
+  end
 end

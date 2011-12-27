@@ -1,24 +1,33 @@
 
-<%= form_tag(feeds_path, :method => :post) do %>
-  <div>
+<%= form_tag(feeds_path, :method => :post, :html => { :multipart => true } ) do %>
+  <div style ="padding-bottom: 20px">
     <%= label_tag :content, "New Feed" %>
-    <%= text_field_tag :content %>
-  </div>
-  
-  <div>
+    <%= text_field_tag :content,nil, :size => 40 %>
     <%= submit_tag "Publish" %>
   </div>
 <% end %>
 <div>
   <div id = "left_body">
     <% @feeds.each do |feed| %>
-      <span style = "color:red"><%= feed.user.email %> ::</span> 
-      <%= feed.content %><br />
+      <div style ="float:left"><span class ="make_red"><%= feed.user.email %> ::</span>
+      <%= feed.content %></div>
+      <div style ="float:right">
+        <% if current_user.user_type == "admin" %>
+          <% form_tag(feed_path(:id => feed.id), :method => :delete) do %>
+            <div style ="float:right;margin:0;display:inline"><%= image_submit_tag("cancel.gif")%></div>
+          <% end %>
+        <% end %>
+      </div><br />
       <fieldset>
         <legend>Comments</legend>
         <div id = "display_comments">
           <% Comment.where("commentable_id = #{feed.id}").each do |comment| %>
             <p><span class="make_red small_font"><%= User.find_by_id(comment.user_id).email %>:</span>&nbsp;&nbsp;<span><%= comment.comment %></span></p>
+            <% if current_user.user_type == "admin" %>
+              <% form_tag(feed_comment_path(:id => comment,:feed_id => feed.id), :method => :delete) do %>
+                <div><%= image_submit_tag("cancel.gif")%></div>
+              <% end %>
+            <% end %><br />
           <% end %>
         </div>
         <div>
