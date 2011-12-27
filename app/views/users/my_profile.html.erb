@@ -2,9 +2,9 @@
 
 <div>
   <p><%= image_tag @user.avatar.url %></p>
-  <%= form_tag user_path(@user), :html => { :multipart => true } do %>
+  <%= form_tag user_path(@user),:as => :put, :html => { :multipart => true } do %>
     <%= file_field_tag :avatar %>
   <% end %>
   <p><span class = "make_red">Email::</span> <%= @user.email %></p>
-  <%#= link_to "Edit", edit_user_path %>
+  <%= link_to "Edit", edit_my_profile_users_path %>
 </div>

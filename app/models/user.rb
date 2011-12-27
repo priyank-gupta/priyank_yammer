@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  TYPE = ["normal", "admin"]
   
   has_many :feeds, :dependent => :destroy
   has_many :follows
@@ -9,6 +10,7 @@ class User < ActiveRecord::Base
   
   devise :database_authenticatable, :registerable, :confirmable, :recoverable, :rememberable, :trackable, :validatable
   
+  validates :user_type, :presence => true
   validates_inclusion_of :user_type, :in => %w( admin normal )
   validates_format_of :email, :with => /\A([^@\s]+)(@vinsol.com)\Z/i, :on => :create
   validates_uniqueness_of :email, :message => "User has already been created"

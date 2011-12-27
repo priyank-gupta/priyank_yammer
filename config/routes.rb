@@ -7,6 +7,8 @@ PriyankYammer::Application.routes.draw do
   resources :users, :except => :show do
     collection do
       get 'my_profile'
+      get 'edit_my_profile'
+      put 'update_my_profile'
     end
   end
 #  get "users/show_user", :to => "users#show_user", :as => "show_user"

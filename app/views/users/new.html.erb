@@ -1,5 +1,4 @@
 <h2>Add User </h2>
-<%= @user.errors %>
 <%= form_for(@user) do |f| %>
   <div>
     <div>
@@ -8,7 +7,7 @@
     </div>
     <div>
       <%= f.label :user_type, "Type" %>&nbsp;&nbsp;
-      <%= f.text_field :user_type %>
+      <%= f.select :user_type, User::TYPE, :prompt => "Select a type--" %><span class='error'><%= @user.errors[:user_type][0] %></span>
     </div>
     <div>
       <%= f.submit %>

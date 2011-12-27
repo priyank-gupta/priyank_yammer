@@ -31,8 +31,21 @@ class UsersController < ApplicationController
     @user = current_user
   end
   
+  def edit_my_profile
+    @user = current_user
+  end
+  
+  def update_my_profile
+    p "_____________________"
+    p params
+    @user = current_user
+    @user.update_attributes(params[:put])
+    redirect_to my_profile_users_path
+  end
+  
   def update
-    
+    p params
+    redirect_to my_profile_users_path
   end
   
   def edit

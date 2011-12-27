@@ -1,0 +1,8 @@
+<h2> Edit Profile </h2>
+
+<%= form_for(@user, :as => :user, :url => update_my_profile_users_path) do |f|%>
+  <%= f.label :email %>
+  <%= f.text_field :email %><br/>
+  <%= f.file_field :avatar %><br />
+  <%= f.submit %>
+<% end %>
