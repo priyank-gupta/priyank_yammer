@@ -1,0 +1,55 @@
+
+<%= form_tag(feeds_path, :method => :post) do %>
+  <div>
+    <%= label_tag :content, "New Feed" %>
+    <%= text_field_tag :content %>
+  </div>
+  
+  <div>
+    <%= submit_tag "Publish" %>
+  </div>
+<% end %>
+<div>
+  <div id = "left_body">
+    <% @feeds.each do |feed| %>
+      <span style = "color:red"><%= feed.user.email %> ::</span> 
+      <%= feed.content %><br />
+      <fieldset>
+        <legend>Comments</legend>
+        <div id = "display_comments">
+          <% Comment.where("commentable_id = #{feed.id}").each do |comment| %>
+            <p><span class="make_red small_font"><%= User.find_by_id(comment.user_id).email %>:</span>&nbsp;&nbsp;<span><%= comment.comment %></span></p>
+          <% end %>
+        </div>
+        <div>
+          <% form_tag(feed_comments_path(feed.id)) do %>
+            <%= text_area_tag :comment,nil, :cols => 60, :rows => 2 %><br/>
+            <%= submit_tag("Comment") %>
+            <%= submit_tag("Clear", :type => "reset") %>
+          <% end %>
+        </div>
+      </fieldset><br/>
+    <% end %>
+  </div>
+  <div id = "right_body">
+    <div id = "follow_these_users">
+      <p class = "make_red">Follow:: </p>
+      <% not_following_users = not_follow %>
+      <% not_following_users.each do |follow| %>
+        <%= form_tag(follow_path) do %>
+          <%= follow.email %>
+          <%= hidden_field_tag :follow_id, follow.id %>
+          <%= submit_tag "Follow" %>
+        <% end %>
+      <% end %>
+    </div>
+    <div id = "following_these_users">
+      <p class = "make_red">Following::</p>
+      <% users = Follow.where("user_id = #{current_user.id}") %>
+      <% users.each do |f_user| %>
+        <%= User.where("id = #{f_user.follow}").first.email %><br />
+      <% end %>
+    </div>
+  </div>
+  <br />
+</div>

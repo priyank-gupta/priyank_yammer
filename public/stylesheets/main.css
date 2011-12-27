@@ -1,0 +1,27 @@
+#leftside, #left_body {
+  float: left;
+}
+
+#rightside  {
+  float:left;
+}
+
+br {
+  clear: both;
+}
+
+#nav1, #right_body {
+  float:right;
+}
+
+#right_body {
+  padding-left: 100px;
+}
+
+.make_red {
+  color:red;
+}
+
+#display_comments p {
+  font-size:13px;
+}

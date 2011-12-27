@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PriyankYammer</title>
+  <%= stylesheet_link_tag :all %>
+  <%#= javascript_include_tag :defaults %>
+  <%= csrf_meta_tag %>
+</head>
+<body>
+  <div id = "header">
+    <h1>Yammer</h1>
+    <div id = "nav1">
+      <span><%= link_to "Add user", new_user_path %></span> | <span><%= link_to "LogOut", destroy_user_session_path %></span>
+    </div><br />
+  </div>
+  <div id = "main_body">
+    <div id = "leftside" style = "padding-right:50px">
+      <%= link_to "Feeds", feeds_path %><br /><br />
+      <%= link_to "My Profile",  %>
+    </div>
+    <div id = "rightside">
+      <%= yield %>
+    </div><br/>
+  </div>
+  <div id = "footer">
+  
+  </div>
+</body>
+</html>
