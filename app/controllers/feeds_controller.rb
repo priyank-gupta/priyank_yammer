@@ -5,9 +5,9 @@ class FeedsController < ApplicationController
   def index
     if current_user.user_type == "normal"
       follow_ids = Feed.find_feeds_of_user_and_following_users(current_user)
-      @feeds = Feed.where("user_id in (?)", follow_ids)
+      @feeds = Feed.where("user_id in (?)", follow_ids).order("updated_at DESC")
     elsif current_user.user_type == "admin"
-      @feeds = Feed.all
+      @feeds = Feed.find(:all, :order => "updated_at DESC")
     end
   end
   
